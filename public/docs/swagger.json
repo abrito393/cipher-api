@@ -1,0 +1,102 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API de Productos y Precios",
+      "description": "Documentación de la API para manejar productos y sus precios.",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://127.0.0.1:8000/api",
+        "description": "Servidor local"
+      }
+    ],
+    "paths": {
+      "/products/{id}/prices": {
+        "get": {
+          "summary": "Obtener precios de un producto",
+          "description": "Devuelve todos los precios asociados a un producto.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID del producto",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Lista de precios obtenida correctamente",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "product": "Producto A",
+                    "prices": [
+                      {
+                        "currency": "USD",
+                        "price": 50.75
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Crear un precio para un producto",
+          "description": "Crea un nuevo precio asociado a un producto.",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID del producto",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "currency_id": {
+                      "type": "integer",
+                      "example": 1
+                    },
+                    "price": {
+                      "type": "number",
+                      "example": 50.75
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Precio creado correctamente",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Price created successfully",
+                    "price": {
+                      "currency_id": 1,
+                      "price": 50.75
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
